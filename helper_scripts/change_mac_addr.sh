@@ -38,15 +38,13 @@ echo
 echo "A reboot will be required afterwards."
 echo
 
-# Read directly from the controlling terminal so this also works when
-# the script itself is piped into bash, e.g.:
-# wget -qO- URL | sudo bash
-if [[ ! -r /dev/tty ]]; then
+if ! exec 3<>/dev/tty; then
     echo "Error: No interactive terminal is available."
     exit 1
 fi
 
-read -r -p "Generate and apply new network identities? [y/N]: " ANSWER </dev/tty
+printf "Generate and apply new network identities? [y/N]: " >&3
+IFS= read -r ANSWER <&3
 
 case "${ANSWER,,}" in
     y|yes)
