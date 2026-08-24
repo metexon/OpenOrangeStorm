@@ -9,7 +9,6 @@ The script:
 - Assigns a persistent, locally administered MAC address to the Ethernet interface
 - Assigns a corresponding persistent MAC address to Wi-Fi, if a Wi-Fi connection is available
 - Keeps the hostname, Ethernet MAC, and Wi-Fi MAC easy to associate by using the same device ID
-```
 
 ## Run directly from GitHub
 

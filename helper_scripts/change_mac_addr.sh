@@ -38,7 +38,15 @@ echo
 echo "A reboot will be required afterwards."
 echo
 
-read -r -p "Generate and apply new network identities? [y/N]: " ANSWER
+# Read directly from the controlling terminal so this also works when
+# the script itself is piped into bash, e.g.:
+# wget -qO- URL | sudo bash
+if [[ ! -r /dev/tty ]]; then
+    echo "Error: No interactive terminal is available."
+    exit 1
+fi
+
+read -r -p "Generate and apply new network identities? [y/N]: " ANSWER </dev/tty
 
 case "${ANSWER,,}" in
     y|yes)
@@ -109,7 +117,7 @@ echo
 #
 
 if nmcli device show "$WIFI_INTERFACE" >/dev/null 2>&1; then
-    WIFI_CONNECTION="$(nmcli -g GENERAL.CONNECTION device show "$WIFI_INTERFACE")"mete
+    WIFI_CONNECTION="$(nmcli -g GENERAL.CONNECTION device show "$WIFI_INTERFACE")"
 
     if [[ -n "$WIFI_CONNECTION" && "$WIFI_CONNECTION" != "--" ]]; then
         echo "Configuring active Wi-Fi connection:"
