@@ -38,7 +38,13 @@ echo
 echo "A reboot will be required afterwards."
 echo
 
-read -r -p "Generate and apply new network identities? [y/N]: " ANSWER
+if ! exec 3<>/dev/tty; then
+    echo "Error: No interactive terminal is available."
+    exit 1
+fi
+
+printf "Generate and apply new network identities? [y/N]: " >&3
+IFS= read -r ANSWER <&3
 
 case "${ANSWER,,}" in
     y|yes)
@@ -109,7 +115,7 @@ echo
 #
 
 if nmcli device show "$WIFI_INTERFACE" >/dev/null 2>&1; then
-    WIFI_CONNECTION="$(nmcli -g GENERAL.CONNECTION device show "$WIFI_INTERFACE")"mete
+    WIFI_CONNECTION="$(nmcli -g GENERAL.CONNECTION device show "$WIFI_INTERFACE")"
 
     if [[ -n "$WIFI_CONNECTION" && "$WIFI_CONNECTION" != "--" ]]; then
         echo "Configuring active Wi-Fi connection:"
