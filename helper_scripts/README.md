@@ -42,6 +42,24 @@ Then run it with `sudo`:
 sudo ./change_mac_addr.sh
 ```
 
+## Change the hostname manually
+
+If you only want to change the hostname, you can do that without running the MAC address script.
+
+Replace `my-printer-name` with the name of your choice:
+
+```bash
+sudo hostnamectl set-hostname my-printer-name
+```
+
+Hostnames should use only letters, numbers, and hyphens. Avoid spaces and special characters.
+
+Then reboot the printer:
+
+```bash
+sudo reboot
+```
+
 ## Why is this needed?
 
 When multiple OpenOrangeStorm systems are created from the same system image, they may end up with conflicting network identities. This can cause multiple printers on the same network to interfere with each other or appear under the same address.
