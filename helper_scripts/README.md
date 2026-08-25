@@ -20,7 +20,12 @@ wget -qO- https://raw.githubusercontent.com/metexon/OpenOrangeStorm/refs/heads/m
 
 The script will show the generated configuration and ask for confirmation before applying any changes.
 
-After the configuration has been written, reboot the printer.
+After the configuration has been written, reboot the printer:
+
+```bash
+sudo reboot
+```
+
 
 ## Download and run manually
 
@@ -42,16 +47,22 @@ Then run it with `sudo`:
 sudo ./change_mac_addr.sh
 ```
 
+Then reboot the printer:
+
+```bash
+sudo reboot
+```
+
 ## Change the hostname manually
 
-If you only want to change the hostname, you can do that without running the MAC address script.
+If you want to use a different hostname, use this command:
 
-Replace `my-printer-name` with the name of your choice:
 
 ```bash
 sudo hostnamectl set-hostname my-printer-name
 ```
 
+Replace `my-printer-name` with the name of your choice.
 Hostnames should use only letters, numbers, and hyphens. Avoid spaces and special characters.
 
 Then reboot the printer:
